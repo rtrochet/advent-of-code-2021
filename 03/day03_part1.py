@@ -33,72 +33,78 @@ The epsilon rate is calculated in a similar way; rather than use the most common
 Use the binary numbers in your diagnostic report to calculate the gamma rate and epsilon rate, then multiply them together. What is the power consumption of the submarine? (Be sure to represent your answer in decimal, not binary.)
 """
 with open("input.txt") as f:
-	lines = [line.strip() for line in f.readlines()]
+    lines = [line.strip() for line in f.readlines()]
 
 count_zeros = [0] * len(lines[0].strip())
 count_ones = [0] * len(lines[0].strip())
 
 for line in lines:
-	for idx, character in enumerate(line):
-		if int(character) == 0:
-			count_zeros[idx] += 1
-		elif int(character) == 1:
-			count_ones[idx] += 1
-		else:
-			raise Exception("oh no")
+    for idx, character in enumerate(line):
+        if int(character) == 0:
+            count_zeros[idx] += 1
+        elif int(character) == 1:
+            count_ones[idx] += 1
+        else:
+            raise Exception("oh no")
 print(count_zeros)
 print(count_ones)
 
 gamma_array = []
 epsilon_array = []
 for idx in range(0, len(count_zeros)):
-	if count_zeros[idx] > count_ones[idx]:
-		gamma_array.append(0)
-		epsilon_array.append(1)
-	elif count_zeros[idx] < count_ones[idx]:
-		gamma_array.append(1)
-		epsilon_array.append(0)
-	else:
-		raise Exception("oh no")
+    if count_zeros[idx] > count_ones[idx]:
+        gamma_array.append(0)
+        epsilon_array.append(1)
+    elif count_zeros[idx] < count_ones[idx]:
+        gamma_array.append(1)
+        epsilon_array.append(0)
+    else:
+        raise Exception("oh no")
+
 
 def to_decimal(binary_array):
-	decimal = 0
-	for digit in binary_array:
-	    decimal = decimal*2 + int(digit)
-	return decimal
+    decimal = 0
+    for digit in binary_array:
+        decimal = decimal * 2 + int(digit)
+    return decimal
+
 
 gamma_rate = to_decimal(gamma_array)
 epsilon_rate = to_decimal(epsilon_array)
 
 print(gamma_rate, epsilon_rate, gamma_rate * epsilon_rate)
 
+
 def to_string(binary_array):
-	binary_string = ""
-	for digit in binary_array:
-		binary_string += str(digit)
-	return binary_string
+    binary_string = ""
+    for digit in binary_array:
+        binary_string += str(digit)
+    return binary_string
+
 
 gamma_string = to_string(gamma_array)
 epsilon_string = to_string(epsilon_array)
 
 print(gamma_string, epsilon_string)
 
+
 def find_best_match(binary_string, lines):
-	possible_matches = lines
-	match = None
-	idx = 0
-	while match is None:
-		digit = binary_string[idx]
-		possible_matches = [value for value in possible_matches if value[idx] == digit]
-		print(idx)
-		print(digit)
-		print(binary_string)
-		print(possible_matches)
-		if len(possible_matches) == 1:
-			[match] =  possible_matches
-		else:
-			idx = idx + 1
-	return match
+    possible_matches = lines
+    match = None
+    idx = 0
+    while match is None:
+        digit = binary_string[idx]
+        possible_matches = [value for value in possible_matches if value[idx] == digit]
+        print(idx)
+        print(digit)
+        print(binary_string)
+        print(possible_matches)
+        if len(possible_matches) == 1:
+            [match] = possible_matches
+        else:
+            idx = idx + 1
+    return match
+
 
 o_gen_rating = find_best_match(gamma_string, lines)
 co2_scrub_rating = find_best_match(epsilon_string, lines)
@@ -107,5 +113,3 @@ print(o_gen_rating, int(o_gen_rating, 2))
 print(co2_scrub_rating, int(co2_scrub_rating, 2))
 
 print(int(o_gen_rating, 2) * int(co2_scrub_rating, 2))
-
-

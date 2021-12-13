@@ -44,16 +44,18 @@ How many measurements are larger than the previous measurement?
 """
 
 with open("input.txt") as f:
-	lines = f.readlines()
+    lines = f.readlines()
 
-prev_depth = int(lines[0])  # initialize prev_depth so there is no change from first value
+prev_depth = int(
+    lines[0]
+)  # initialize prev_depth so there is no change from first value
 count_incs = 0
 
 for index, line in enumerate(lines):
-	cur_depth = int(line)
-	if cur_depth > prev_depth:
-		count_incs += 1
+    cur_depth = int(line)
+    if cur_depth > prev_depth:
+        count_incs += 1
 
-	prev_depth = int(line)
+    prev_depth = int(line)
 
 print(count_incs)

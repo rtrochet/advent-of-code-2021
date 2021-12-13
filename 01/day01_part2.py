@@ -37,20 +37,22 @@ GROUP_SIZE = 3
 
 
 with open("input.txt") as f:
-	lines = f.readlines()
-	measurements = [int(line.strip()) for line in lines]  # delete trailing newline
+    lines = f.readlines()
+    measurements = [int(line.strip()) for line in lines]  # delete trailing newline
 
-sums = [sum(measurements[idx:idx+GROUP_SIZE]) for idx in range(0, len(measurements) - (GROUP_SIZE - 1))]
+sums = [
+    sum(measurements[idx : idx + GROUP_SIZE])
+    for idx in range(0, len(measurements) - (GROUP_SIZE - 1))
+]
 
 prev_sum = sums[0]  # initialize prev_depth so there is no change from first value
 count_incs = 0
 
 for value in sums:
-	cur_sum = value
-	if cur_sum > prev_sum:
-		count_incs += 1
+    cur_sum = value
+    if cur_sum > prev_sum:
+        count_incs += 1
 
-	prev_sum = cur_sum
+    prev_sum = cur_sum
 
 print(count_incs)
-

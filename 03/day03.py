@@ -33,42 +33,43 @@ The epsilon rate is calculated in a similar way; rather than use the most common
 Use the binary numbers in your diagnostic report to calculate the gamma rate and epsilon rate, then multiply them together. What is the power consumption of the submarine? (Be sure to represent your answer in decimal, not binary.)
 """
 with open("input.txt") as f:
-	lines = f.readlines()
+    lines = f.readlines()
 
 count_zeros = [0] * len(lines[0].strip())
 count_ones = [0] * len(lines[0].strip())
 
 for line in lines:
-	for idx, character in enumerate(line.strip()):
-		if int(character) == 0:
-			count_zeros[idx] += 1
-		elif int(character) == 1:
-			count_ones[idx] += 1
-		else:
-			raise Exception("oh no")
+    for idx, character in enumerate(line.strip()):
+        if int(character) == 0:
+            count_zeros[idx] += 1
+        elif int(character) == 1:
+            count_ones[idx] += 1
+        else:
+            raise Exception("oh no")
 print(count_zeros)
 print(count_ones)
 
 gamma_array = []
 epsilon_array = []
 for idx in range(0, len(count_zeros)):
-	if count_zeros[idx] > count_ones[idx]:
-		gamma_array.append(0)
-		epsilon_array.append(1)
-	elif count_zeros[idx] < count_ones[idx]:
-		gamma_array.append(1)
-		epsilon_array.append(0)
-	else:
-		raise Exception("oh no")
+    if count_zeros[idx] > count_ones[idx]:
+        gamma_array.append(0)
+        epsilon_array.append(1)
+    elif count_zeros[idx] < count_ones[idx]:
+        gamma_array.append(1)
+        epsilon_array.append(0)
+    else:
+        raise Exception("oh no")
+
 
 def to_decimal(binary):
-	decimal = 0
-	for digit in binary:
-	    decimal = decimal*2 + int(digit)
-	return decimal
+    decimal = 0
+    for digit in binary:
+        decimal = decimal * 2 + int(digit)
+    return decimal
+
 
 gamma_rate = to_decimal(gamma_array)
 epsilon_rate = to_decimal(epsilon_array)
 
 print(gamma_rate, epsilon_rate, gamma_rate * epsilon_rate)
-

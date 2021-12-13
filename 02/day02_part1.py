@@ -34,41 +34,41 @@ from enum import Enum
 
 
 class Direction(Enum):
-	forward = "forward"
-	up = "up"
-	down = "down"
+    forward = "forward"
+    up = "up"
+    down = "down"
 
 
 @attr.dataclass
 class Move:
-	direction: Direction = attr.ib(converter = Direction)
-	amount: int = attr.ib(converter = int)
+    direction: Direction = attr.ib(converter=Direction)
+    amount: int = attr.ib(converter=int)
 
 
 @attr.dataclass
 class Position:
-	x: int = 0
-	y: int = 0
+    x: int = 0
+    y: int = 0
 
-	def move(self, move: Move) -> None:
-		if move.direction == Direction.forward:
-			self.x += move.amount
-		elif move.direction == Direction.up:
-			self.y -= move.amount
-		elif move.direction == Direction.down:
-			self.y += move.amount
-		else:
-			raise Exception("oh no")
+    def move(self, move: Move) -> None:
+        if move.direction == Direction.forward:
+            self.x += move.amount
+        elif move.direction == Direction.up:
+            self.y -= move.amount
+        elif move.direction == Direction.down:
+            self.y += move.amount
+        else:
+            raise Exception("oh no")
 
 
 position = Position()
 
 with open("input.txt") as f:
-	lines = f.readlines()
+    lines = f.readlines()
 
 for line in lines:
-	move = Move(*line.split())
-	position.move(move)
+    move = Move(*line.split())
+    position.move(move)
 
 print(position)
 print(position.x * position.y)
